@@ -156,11 +156,14 @@ public class ShoppingRecyclerList extends Fragment {
                     // onComplete(Token);
                     client.dispatcher().executorService().shutdown();
                     Handler mainHandler = new Handler(Looper.getMainLooper());
-
+ 
                     mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            beaconMes.setText("");
 
+                            mAdapter = new ItemListAdapter(ItemList, x_auth_token);
+                            recyclerView.setAdapter(mAdapter);
                             beaconListSelector(ItemList);
                         }
                     });
@@ -229,7 +232,7 @@ public class ShoppingRecyclerList extends Fragment {
             }
             @Override
             public void onExitedRegion(BeaconRegion region) {
-                beaconMes.setText("No Iteams ,Please walk into the store to view Items");
+                //beaconMes.setText("No Iteams ,Please walk into the store to view Items");
                 Toast.makeText(getContext(),"visit again ", Toast.LENGTH_SHORT).show();
                 ArrayList<ItemPojo>beaconItemList=new ArrayList<ItemPojo>();
                 mAdapter=new ItemListAdapter(beaconItemList,x_auth_token);
